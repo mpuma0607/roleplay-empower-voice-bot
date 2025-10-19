@@ -13,6 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Create LiveKit Cloud Agent
+        uses: livekit/deploy-action@main
+        env:
+          LIVEKIT_URL: ${{ secrets.LIVEKIT_WS_URL }}
+          LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
+          LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
+          SECRET_LIST: ${{ secrets.SECRET_LIST }}
+        with:
+          OPERATION: create
+          WORKING_DIRECTORY: .
+
       - name: Deploy LiveKit Cloud Agent
         uses: livekit/deploy-action@main
         env:
