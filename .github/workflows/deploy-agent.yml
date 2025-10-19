@@ -22,10 +22,11 @@ jobs:
           npm install -g pnpm
           pnpm install
 
-      - name: Setup LiveKit CLI
+      - name: Install LiveKit CLI
         run: |
           curl -s https://get.livekit.io/cli | bash
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          sudo mv ~/.local/bin/lk /usr/local/bin/lk
+          lk --version
 
       - name: Authenticate with LiveKit Cloud
         run: |
