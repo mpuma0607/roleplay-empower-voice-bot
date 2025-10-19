@@ -24,7 +24,7 @@ jobs:
 
       - name: Install LiveKit CLI
         run: |
-          wget -O lk https://github.com/livekit/livekit-cli/releases/latest/download/lk-linux-amd64
+          wget -O lk https://github.com/livekit/livekit-cli/releases/download/v2.6.3/lk-linux-amd64
           chmod +x lk
           sudo mv lk /usr/local/bin/lk
           lk --version
