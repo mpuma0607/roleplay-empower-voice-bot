@@ -2,35 +2,24 @@ name: Deploy LiveKit Agent
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Deploy LiveKit Cloud Agent
+        uses: livekit/deploy-action@main
+        env:
+          LIVEKIT_URL: ${{ secrets.LIVEKIT_URL }}
+          LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
+          LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
+          SECRET_LIST: ${{ secrets.SECRET_LIST }}
         with:
-          node-version: '22'
-
-      - name: Install dependencies
-        run: |
-          npm install -g pnpm
-          pnpm install
-
-      - name: Install LiveKit CLI
-        run: |
-          npm install -g livekit-cli
-          lk --version
-
-      - name: Authenticate with LiveKit Cloud
-        run: |
-          lk cloud auth --api-key ${{ secrets.LIVEKIT_API_KEY }} --api-secret ${{ secrets.LIVEKIT_API_SECRET }}
-
-      - name: Deploy Agent
-        run: |
-          lk agent deploy
+          OPERATION: deploy
+          WORKING_DIRECTORY: .
