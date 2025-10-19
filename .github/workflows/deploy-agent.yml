@@ -24,7 +24,7 @@ jobs:
 
       - name: Install LiveKit CLI
         run: |
-          npm install -g @livekit/cli
+          npm install -g livekit-cli
           lk --version
 
       - name: Authenticate with LiveKit Cloud
@@ -34,4 +34,3 @@ jobs:
       - name: Deploy Agent
         run: |
           lk agent deploy
-        
