@@ -18,7 +18,7 @@ dotenv.config({ path: '.env.local' });
 class Assistant extends voice.Agent {
   constructor() {
     super({
-      instructions: instructions: `You are an AI assistant designed to help real estate agents practice their skills through roleplay conversations. 
+      instructions: `You are an AI assistant designed to help real estate agents practice their skills through roleplay conversations. 
 
 IMPORTANT: You are NOT a real estate agent. You are a CLIENT that the agent is practicing with.
 
@@ -75,17 +75,17 @@ export default defineAgent({
   entry: async (ctx: JobContext) => {
     // Set up a voice AI pipeline using OpenAI, Cartesia, AssemblyAI, and the LiveKit turn detector
     const session = new voice.AgentSession({
-  // Speech-to-text (STT) is your agent's ears, turning the user's speech into text that the LLM can understand
-  // Using OpenAI Whisper for STT
-  stt: 'openai/whisper-1',
+      // Speech-to-text (STT) is your agent's ears, turning the user's speech into text that the LLM can understand
+      // Using OpenAI Whisper for STT
+      stt: 'openai/whisper-1',
 
-  // A Large Language Model (LLM) is your agent's brain, processing user input and generating a response
-  // Using Cerebras for high-performance inference
-  llm: 'cerebras/llama-3.3-70b',
+      // A Large Language Model (LLM) is your agent's brain, processing user input and generating a response
+      // Using Cerebras for high-performance inference
+      llm: 'cerebras/llama-3.3-70b',
 
-  // Text-to-speech (TTS) is your agent's voice, turning the LLM's text into speech that the user can hear
-  // Using Cartesia Sonic for natural voice
-  tts: 'cartesia/sonic-2:9626c31c-bec5-4cca-baa8-f8ba9e84c8bc',
+      // Text-to-speech (TTS) is your agent's voice, turning the LLM's text into speech that the user can hear
+      // Using Cartesia Sonic for natural voice
+      tts: 'cartesia/sonic-2:9626c31c-bec5-4cca-baa8-f8ba9e84c8bc',
 
       // VAD and turn detection are used to determine when the user is speaking and when the agent should respond
       // See more at https://docs.livekit.io/agents/build/turns
