@@ -24,9 +24,7 @@ jobs:
 
       - name: Install LiveKit CLI
         run: |
-          wget -O lk https://github.com/livekit/livekit-cli/releases/download/v2.6.3/lk-linux-amd64
-          chmod +x lk
-          sudo mv lk /usr/local/bin/lk
+          npm install -g @livekit/cli
           lk --version
 
       - name: Authenticate with LiveKit Cloud
@@ -36,3 +34,4 @@ jobs:
       - name: Deploy Agent
         run: |
           lk agent deploy
+        
