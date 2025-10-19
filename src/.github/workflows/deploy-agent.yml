@@ -1,0 +1,25 @@
+name: Deploy LiveKit Agent
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup LiveKit CLI
+        run: |
+          curl -s https://get.livekit.io/cli | bash
+
+      - name: Authenticate with LiveKit Cloud
+        run: |
+          lk cloud auth --api-key ${{ secrets.LIVEKIT_API_KEY }} --api-secret ${{ secrets.LIVEKIT_API_SECRET }}
+
+      - name: Deploy Agent
+        run: |
+          lk agent deploy
