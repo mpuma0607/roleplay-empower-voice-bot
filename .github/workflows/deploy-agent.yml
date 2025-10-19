@@ -1,4 +1,4 @@
-name: Deploy LiveKit Agent
+name: Deploy LiveKit Agent 
 
 on:
   push:
