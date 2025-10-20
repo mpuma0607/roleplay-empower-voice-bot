@@ -1,40 +1,25 @@
-name: Deploy Agent
+name: Deploy LiveKit Agent 
 
 on:
   push:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'pnpm'
-      
-      - name: Install dependencies
-        run: pnpm install
-      
-      - name: Build
-        run: pnpm run build
-      
-      - name: Deploy to LiveKit Cloud
+
+      - name: Deploy LiveKit Cloud Agent
         uses: livekit/deploy-action@main
-        with:
-          operation: deploy
-          agentIds: roleplay-empower-agent
         env:
-          LIVEKIT_URL: wss://empower-ai-ld7oxlkz.livekit.cloud
-          LIVEKIT_API_KEY: APInL6GmyQQjJjC
-          LIVEKIT_API_SECRET: fdt5kYeQiBheDTDZx1C3g96iFBOfg5L2Bbe1ye8bZ4IN
-          LIVEKIT_PROJECT_ID: p_47a0dq1yzvp
+          LIVEKIT_URL: ${{ secrets.LIVEKIT_WS_URL }}
+          LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
+          LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
+          SECRET_LIST: ${{ secrets.SECRET_LIST }}
+        with:
+          OPERATION: deploy
+          WORKING_DIRECTORY: .
