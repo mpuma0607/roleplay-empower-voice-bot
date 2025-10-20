@@ -1,12 +1,10 @@
 [agent]
-name = "roleplay-empower"
+name = "roleplay-empower-agent"
 version = "1.0.0"
 
-[agent.build]
+[build]
 dockerfile = "Dockerfile"
 context = "."
 
-[agent.env]
-CEREBRAS_API_KEY = "${CEREBRAS_API_KEY}"
-OPENAI_API_KEY = "${OPENAI_API_KEY}"
-CARTESIA_API_KEY = "${CARTESIA_API_KEY}"
+[deploy]
+projectId = "p_47a0dq1yzvp"
